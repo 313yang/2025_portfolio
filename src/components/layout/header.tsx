@@ -1,8 +1,10 @@
-import "./header.css";
+import "../../styles/header.css";
 
-export default function Header() {
+type locationType = "top" | "bottom";
+
+export default function Header({ location }: { location: locationType; }) {
   return (
-    <div className="marquee">
+    <div className={`introduceText ${location}`}>
       <span>Hello! Yang Byeori's portpoilo! Moving with arrow key</span>
     </div>
   );
