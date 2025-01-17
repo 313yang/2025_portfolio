@@ -1,71 +1,48 @@
+type MoveType = "up" | "down" | "left" | "right";
 
-let position = {
-    x: 200,
-    y: 200,
-};
-let movelate = 9;
-function updatePosition(offset: number) {
-    if (position.x < 0) {
-        position.x = 399;
-    } else if (position.x > 399) {
-        position.x = 0;
+export interface PositionType {
+    x: number;
+    y: number;
+}
+function updatePosition(position: PositionType, move: MoveType) {
+    const offset = 5; // keydown 이벤트마다 움직일 px 크기
+    switch (move) {
+        case "up":
+            position.y -= offset;
+            break;
+        case "down":
+            position.y += offset;
+            break;
+        case "left":
+            position.x -= offset;
+            break;
+        case "right":
+            position.x += offset;
+            break;
     }
-
-    if (position.y < 0) {
-        position.y = 399;
-    } else if (position.y > 399) {
-        position.y = 0;
-    }
+    return position;
 }
 
-function refresh() {
-    let x = position.x - 50;
-    let y = position.y - 50;
-    let transform = `translate(${x} ${y}) `;
-    return transform;
-}
 
-export const MoveToUp = () => {
-    updatePosition(-movelate);
+const actionMap: Record<string, (position: PositionType) => PositionType> = {
+    KeyW: (position) => updatePosition(position, "up"),
+    ArrowUp: (position) => updatePosition(position, "up"),
+    KeyS: (position) => updatePosition(position, "down"),
+    ArrowDown: (position) => updatePosition(position, "down"),
+    KeyA: (position) => updatePosition(position, "left"),
+    ArrowLeft: (position) => updatePosition(position, "left"),
+    KeyD: (position) => updatePosition(position, "right"),
+    ArrowRight: (position) => updatePosition(position, "right"),
 };
 
-export const MoveToDown = () => {
-    updatePosition(movelate);
-};
-
-export const MoveToLeft = () => {
-
-};
-
-export const MoveToRight = () => {
-
-};
-const actionMap: Record<string, () => void> = {
-    KeyW: MoveToUp,
-    ArrowUp: MoveToUp,
-    KeyS: MoveToDown,
-    ArrowDown: MoveToDown,
-    KeyA: MoveToLeft,
-    ArrowLeft: MoveToLeft,
-    KeyD: MoveToRight,
-    ArrowRight: MoveToRight,
-};
-
-export const MoveCharacter = (event: any): string => {
-    console.log(event)
+export const moveCharacter = (event: any, position: PositionType) => {
     if (event.defaultPrevented) {
-        event.preventDefault();
+        return;
     }
 
     if (actionMap[event.code]) {
-        actionMap[event.code](); // 키에 매핑된 동작 실행
+        return actionMap[event.code](position); // 키에 매핑된 동작 실행
     } else {
         event.preventDefault();
     }
-    return refresh();
-    // if (event.code !== "Tab") {
-    //     // 이벤트를 소비하여 사용자가 포커스를 이동하려고 하지 않는 한
-    //     // 이벤트가 두 번 처리되지 않도록 합니다.
-    //     event.preventDefault();
-    // }
 };

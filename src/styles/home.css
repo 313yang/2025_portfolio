@@ -1,0 +1,18 @@
+.character {
+    border: 1px solid #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.character p {
+    margin: 0
+}
+.moveContainer {
+    width: 100%;
+    height: calc(100vh - 40px);
+}
+
+.moveContainer:focus {
+    outline: none;
+}
