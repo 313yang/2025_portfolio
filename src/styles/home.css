@@ -11,6 +11,7 @@
 .moveContainer {
     width: 100%;
     height: calc(100vh - 40px);
+    background: url("/bg.png") no-repeat center;
 }
 
 .moveContainer:focus {

@@ -20,11 +20,11 @@ function updatePosition(position: PositionType, move: MoveType) {
             position.x += offset;
             break;
     }
-    return position;
+    return `translate(${position.x}px, ${position.y}px)`;
 }
 
 
-const actionMap: Record<string, (position: PositionType) => PositionType> = {
+const actionMap: Record<string, (position: PositionType) => string> = {
     KeyW: (position) => updatePosition(position, "up"),
     ArrowUp: (position) => updatePosition(position, "up"),
     KeyS: (position) => updatePosition(position, "down"),

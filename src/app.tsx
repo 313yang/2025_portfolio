@@ -8,14 +8,14 @@ import "./styles/home.css";
 const caracterSize = 60;
 
 export function App() {
+  const [transform, setTranform] = useState<string>("");
   const [position, setPosition] = useState<PositionType>({ x: 0, y: 0 });
 
   useLayoutEffect(() => {
-    setPosition({
-      x: window.innerWidth / 2 - caracterSize,
-      y: window.innerHeight / 2 - caracterSize
-    });
-    // TODO:: position 이전값과 비교해서 값 달라졌을 때만 리렌더되도록 로직 수정 
+    const x = window.innerWidth / 2 - caracterSize;
+    const y = window.innerHeight / 2 - caracterSize;
+    setTranform(`translate(${x}px, ${y}px)`);
+    setPosition({ x, y });
   }, []);
 
   return (
@@ -23,10 +23,7 @@ export function App() {
       <div
         tabIndex={0}
         className="moveContainer"
-        onKeyDown={(event) => {
-          const updatedPosition = moveCharacter(event, position);
-          updatedPosition && setPosition(updatedPosition);
-        }}
+        onKeyDown={(event) => setTranform(moveCharacter(event, position) || "")}
       >
         <Header location={"top"} />
         <div
@@ -35,7 +32,7 @@ export function App() {
           style={{
             width: caracterSize,
             height: caracterSize,
-            transform: `translate(${position.x}px, ${position.y}px)`
+            transform
           }}>
           <p>ABC</p>
         </div>
