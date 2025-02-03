@@ -43,6 +43,6 @@ export const moveCharacter = (event: any, position: PositionType) => {
     if (actionMap[event.code]) {
         return actionMap[event.code](position); // 키에 매핑된 동작 실행
     } else {
-        event.preventDefault();
+        return
     }
 };
