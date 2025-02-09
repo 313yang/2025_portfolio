@@ -1,20 +1,27 @@
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #101421;
+  --blue: #02A1FA;
+  --gray: #2E2E2E;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #101421;
     --foreground: #ededed;
+    --blue: #02A1FA;
+    --gray: #2E2E2E;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: "Pixelify Sans", serif;
-  font-size: 32px;
-  overflow: hidden;
+  /* font-family: "Pixelify Sans", serif; */
+  padding: 10px;
+}
+
+p {
+  padding: 0;
   margin: 0;
 }
