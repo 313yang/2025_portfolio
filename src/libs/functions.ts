@@ -14,3 +14,28 @@ export function BuildClass(...classList: Array<string | undefined | null | true 
 	if (keep) return "";
 	return undefined;
 }
+
+/** 
+ * 입력된 문자가 리눅스 명령어인지 판단합니다.
+ */
+export const checkLinuxCommand = (text: string) => {
+	console.log("text::",text)
+	switch (text) {
+		case "ls": return showList();
+		default: return showHelp();
+	}
+};
+
+export const showList = () => {
+	return `\n work.txt \n project.txt \n about_me.txt \n githun.txt \n velog.txt \n`;
+
+};
+
+export const showHelp = () => {
+	return `\nComand Option : \n  
+	ls: Lists files and directories. \n
+	cd: Changes the current directory. \n
+	pwd - Prints the current working directory. \n
+	cat - Displays the contents of a file. \n
+	`;
+};

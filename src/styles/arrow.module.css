@@ -44,3 +44,13 @@
   border-width: 13px 0 13px 12px;
   border-color: transparent transparent transparent var(--blue);
 }
+
+input {
+  background-color: transparent;
+  font-family: "Fira Code", serif;
+  margin-left: 20px;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}

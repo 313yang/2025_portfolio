@@ -21,7 +21,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  /* font-family: "Pixelify Sans", serif; */
+  font-family: "Fira Code", serif;
   padding: 10px;
 }
 
