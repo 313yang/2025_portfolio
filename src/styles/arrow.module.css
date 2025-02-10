@@ -4,22 +4,25 @@
 
 .arrow {
   position: relative;
-  height: 20px;
+  height: 26px;
   padding: 2px 6px;
+  display: inline-block;
 }
 
 .user {
   background-color: var(--gray);
 }
 
-.dirArrow {
-  position: relative;
-  height: 20px;
+.dir {
   background-color: var(--blue);
 }
 
-.dirArrow::before,
-.dirArrow::after {
+.dir p {
+  padding-left: 13px;
+}
+
+.dir.arrow::before,
+.dir.arrow::after {
   content: '';
   position: absolute;
   width: 0;
@@ -27,17 +30,17 @@
   border-style: solid;
 }
 
-.dirArrow::before {
+.dir.arrow::before {
   top: 0;
-  /* left: -12px; */
-  border-width: 10px 12px 10px 0;
+  left: 0px;
+  border-width: 13px 12px 13px 0;
   border-color: transparent var(--gray) transparent transparent;
   transform: rotate(180deg);
 }
 
-.dirArrow::after {
+.dir.arrow::after {
   top: 0;
   right: -12px;
-  border-width: 10px 0 10px 12px;
+  border-width: 13px 0 13px 12px;
   border-color: transparent transparent transparent var(--blue);
 }

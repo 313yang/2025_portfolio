@@ -14,6 +14,10 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -24,4 +28,9 @@ body {
 p {
   padding: 0;
   margin: 0;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
 }

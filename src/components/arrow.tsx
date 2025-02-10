@@ -7,7 +7,7 @@ export default function Arrow() {
             <div className={BuildClass(style.user, style.arrow)}>
                 <p>yang_byeori</p>
             </div>
-            <div className={style.dirArrow}>
+            <div className={BuildClass(style.dir, style.arrow)}>
                 <p>~</p>
             </div>
         </section>
