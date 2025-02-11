@@ -1,13 +1,24 @@
-import { useLayoutEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import { BuildClass, checkLinuxCommand } from "../libs/functions";
 import style from "../styles/arrow.module.css";
 
-export default function Arrow({ inputRef, setCommand }: { inputRef?: any, setCommand: any; }) {
+interface ArrowProps {
+    setCommand: (text: string) => void,
+    dir: string,
+    setDir: (text: string) => void;
+}
+
+export default function Arrow({
+    setCommand,
+    dir,
+    setDir,
+}: ArrowProps) {
     const [text, setText] = useState<string>("");
 
     const activeEnter = (e: any) => {
         if (e.key === "Enter") {
-            setCommand(checkLinuxCommand(text));
+            const command = checkLinuxCommand(text, dir, (text) => setDir(text));
+            typeof command === "string" && setCommand(command);
         }
     };
 
@@ -17,21 +28,19 @@ export default function Arrow({ inputRef, setCommand }: { inputRef?: any, setCom
         setText(value);
     };
 
-    console.log("inputRef",inputRef)
     return (
-        <section className={style.arrow}>
+        <div className={style.arrow}>
             <div className={BuildClass(style.user, style.arrow)}>
                 <p>yang_byeori</p>
             </div>
             <div className={BuildClass(style.dir, style.arrow)}>
-                <p>~</p>
+                <p>~ {dir && "/" + dir}</p>
             </div>
             <input
-                ref={inputRef}
                 defaultValue={text}
                 onChange={inputHandler}
                 onKeyDown={(e) => activeEnter(e)}
             />
-        </section>
+        </div>
     );
 }
