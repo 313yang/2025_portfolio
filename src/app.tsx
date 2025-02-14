@@ -21,14 +21,17 @@ export function App() {
   return (
     <Suspense fallback={<Loading />}>
       <Arrow
+        isLastCommand
         setCommand={handleCommand}
         dir={dir}
         setDir={(dir: string) => setDir(dir)}
       />
       {Array.from({ length: commandLineCount }, (_, i) => (
         <section key={i} ref={sectionRef}>
+          {console.log(commandLineCount, i)}
           <p className="commandLine">{command[i]}</p>
           <Arrow
+            isLastCommand={commandLineCount === i + 1}
             setCommand={handleCommand}
             dir={dir}
             setDir={(dir: string) => setDir(dir)}
