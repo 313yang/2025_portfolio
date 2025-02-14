@@ -1,6 +1,7 @@
 import { useState } from "preact/hooks";
 import { BuildClass, checkLinuxCommand } from "../libs/functions";
 import style from "../styles/arrow.module.css";
+import { Input } from "./input";
 
 interface ArrowProps {
     setCommand: (text: string) => void,
@@ -15,17 +16,10 @@ export default function Arrow({
 }: ArrowProps) {
     const [text, setText] = useState<string>("");
 
-    const activeEnter = (e: any) => {
-        if (e.key === "Enter") {
-            const command = checkLinuxCommand(text, dir, (text) => setDir(text));
-            typeof command === "string" && setCommand(command);
-        }
-    };
+    const activeEnter = () => {
 
-    const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const target = e.target as HTMLInputElement;
-        const value = target.value.slice(0);
-        setText(value);
+        const command = checkLinuxCommand(text, dir, (text) => setDir(text));
+        typeof command === "string" && setCommand(command);
     };
 
     return (
@@ -36,10 +30,10 @@ export default function Arrow({
             <div className={BuildClass(style.dir, style.arrow)}>
                 <p>~ {dir && "/" + dir}</p>
             </div>
-            <input
+            <Input
+                onEnter={activeEnter}
                 defaultValue={text}
-                onChange={inputHandler}
-                onKeyDown={(e) => activeEnter(e)}
+                onInput={(value) => setText(value)}
             />
         </div>
     );

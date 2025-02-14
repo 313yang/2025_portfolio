@@ -34,3 +34,18 @@ p {
   display: flex;
   flex-direction: column;
 }
+
+.commandLine {
+  white-space: break-spaces;
+  padding: 12px;
+}
+
+.input {
+  background-color: transparent;
+  font-family: "Fira Code", serif;
+  margin-left: 20px;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}

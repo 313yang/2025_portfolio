@@ -38,6 +38,11 @@ export const checkLinuxCommand = (text: string, dir: string, setDir?: (dir: stri
 	}
 };
 
+/**
+ * `ls` 명령어 입력 시 조회가능한 디렉토리 리스트를 출력합니다
+ * @param dir stirng
+ * @returns string
+ */
 export const showList = (dir?: string) => {
 	switch (dir) {
 		case "work":
@@ -51,6 +56,10 @@ export const showList = (dir?: string) => {
 	}
 };
 
+/**
+ * 지정된 명령어를 제외한 텍스트 입력 시 --help를 반환합니다.
+ * @returns string
+ */
 export const showHelp = () => {
 	return `\nComand Option : \n  
 	ls: Lists files and directories. \n
