@@ -20,20 +20,17 @@ const dirArray = ["work", "project", "about_me"];
 /** 
  * 입력된 문자가 리눅스 명령어인지 판단합니다.
  */
-export const checkLinuxCommand = (text: string, dir: string, setDir?: (dir: string) => void) => {
+export const checkLinuxCommand = (text: string, currnetDir: string) => {
 	console.log("text::", text);
 	switch (text.split(" ")[0]) {
-		case "ls": return showList(dir);
+		case "ls": return showList(currnetDir);
 		case "cd": {
-			const dir = dirArray.find((dir) => text.includes(dir)); // 포함된 디렉토리 찾기
-			if (dir) {
-				setDir && setDir(dir); // 디렉토리가 있으면 setDir 호출
+			const findDir = dirArray.find((dir) => text.includes(dir)); // 포함된 디렉토리 찾기
+			if (findDir) {
 				return "\n";
 			}
 			return showHelp(); // 포함된 디렉토리가 없으면 아무 작업도 하지 않고 종료
 		}
-		case "cd project": return setDir && setDir("project");
-		case "cd about_me": return setDir && setDir("about_me");
 		default: return showHelp();
 	}
 };

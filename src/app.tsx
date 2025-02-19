@@ -4,7 +4,7 @@ import Arrow from "./components/arrow";
 
 export function App() {
   const [command, setCommand] = useState<string[]>([]);
-  const [dir, setDir] = useState<string>("");
+  const [dir, setDir] = useState<string[]>([]); // 이동한 디렉토리 루트 리스트입니다.
   const [commandLineCount, setCommandLineCount] = useState<number>(0);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -24,17 +24,17 @@ export function App() {
         isLastCommand
         setCommand={handleCommand}
         dir={dir}
-        setDir={(dir: string) => setDir(dir)}
+        setDir={(dir: string[]) => setDir(dir)}
       />
       {Array.from({ length: commandLineCount }, (_, i) => (
         <section key={i} ref={sectionRef}>
-          {console.log(commandLineCount, i)}
           <p className="commandLine">{command[i]}</p>
           <Arrow
             isLastCommand={commandLineCount === i + 1}
             setCommand={handleCommand}
+            currentDir={dir[i]}
             dir={dir}
-            setDir={(dir: string) => setDir(dir)}
+            setDir={(dir: string[]) => setDir(dir)}
           />
         </section>
       ))}
