@@ -15,22 +15,30 @@ export function BuildClass(...classList: Array<string | undefined | null | true 
 	return undefined;
 }
 
+/**
+ * 새 창으로 윈도우 창을 엽니다.
+ * @param url 
+ * @returns 
+ */
+const openWindow = (url: string) => {
+	window.open(url, "_blank");
+	return "\n";
+};
+
 const dirArray = ["work", "project", "about_me"];
+const workDir = ["toonation.txt", "samlab.txt"];
+const projectDir = ["joomoonmoa.txt", "soundy.txt", "emotion_diary.txt"];
+const about_meDir = ["github.txt", "notion.txt", "velog.txt"];
 
 /** 
  * 입력된 문자가 리눅스 명령어인지 판단합니다.
  */
 export const checkLinuxCommand = (text: string, currnetDir: string) => {
-	console.log("text::", text);
 	switch (text.split(" ")[0]) {
 		case "ls": return showList(currnetDir);
-		case "cd": {
-			const findDir = dirArray.find((dir) => text.includes(dir)); // 포함된 디렉토리 찾기
-			if (findDir) {
-				return "\n";
-			}
-			return showHelp(); // 포함된 디렉토리가 없으면 아무 작업도 하지 않고 종료
-		}
+		case "cd": return commandCd(text);
+		case "cat": return commandCat(text, currnetDir);
+
 		default: return showHelp();
 	}
 };
@@ -43,11 +51,11 @@ export const checkLinuxCommand = (text: string, currnetDir: string) => {
 export const showList = (dir?: string) => {
 	switch (dir) {
 		case "work":
-			return `\n toonation.txt \n samlab.txt \n `;
+			return `\n ${workDir.join("\n")}`;
 		case "project":
-			return `\n joomoonmoa.txt \n soundy.txt \n emotion_diary.txt \n find_my_plant.txt \n velog.txt \n`;
+			return `\n ${projectDir.join("\n")}`;
 		case "about_me":
-			return `\n github.txt \n notion.txt \n velog.txt \n`;
+			return `\n ${about_meDir.join("\n")}`;
 		default:
 			return `\n ${dirArray.join("\n")}`;
 	}
@@ -65,6 +73,46 @@ export const showHelp = () => {
 	`;
 };
 
-export const commandCd = () => {
+/**
+ * `cd` 명령어 입력 시 명령어에 포함된 디렉토리로 이동시킵니다.
+ * @param text : 입력된 명령어
+ * @returns 
+ */
+const commandCd = (text: string) => {
+	const findDir = dirArray.find((dir) => text.includes(dir)); // 포함된 디렉토리 찾기
+	if (findDir || text.includes("../")) {
+		return "\n";
+	}
+	return showHelp(); // 포함된 디렉토리가 없으면 아무 작업도 하지 않고 종료
+};
 
+/**
+ * `cat` 명령어 입력 시 명령어에 포함된 파일을 엽니]다.
+ * @param text 
+ * @param currnetDir 
+ * @returns 
+ */
+export const commandCat = (text: string, currnetDir: string) => {
+	switch (currnetDir) {
+		case "work":
+			switch (text.split(" ")[1]) {
+				case "toonation.txt": return openWindow("https://toonation.co.kr/service/toonation");
+				case "samlab.txt": return openWindow("https://samlab.co.kr");
+				default: return showHelp();
+			}
+		case "project":
+			switch (text.split(" ")[1]) {
+				case "joomoonmoa.txt": return openWindow("https://coconut-answer-2e3.notion.site/15e79093cbf0807795fefc4d99adff57");
+				case "soundy.txt": return openWindow("https://coconut-answer-2e3.notion.site/Soundy-9922ee9277c343a797b13903c5000e50?pvs=74");
+				case "emotion_diary.txt": return openWindow("https://coconut-answer-2e3.notion.site/eaf6f6950c69464d8aa549513547e7b7");
+				default: return showHelp();
+			}
+		case "about_me":
+			switch (text.split(" ")[1]) {
+				case "github.txt": return openWindow("https://github.com/313yang");
+				case "notion.txt": return openWindow("https://coconut-answer-2e3.notion.site/Frontend-Developer-Yang-Byeori-6ca11f9ef56544acb65844f93293c8ec");
+				case "velog.txt": return openWindow("https://velog.io/@313yang/posts");
+				default: return showHelp();
+			}
+	}
 };
